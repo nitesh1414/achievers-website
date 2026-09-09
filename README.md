@@ -1,107 +1,74 @@
-# Achievers Academy CMS
-**Complete Custom Multi-page Content Management System**  
-Procedural/OOP Core PHP + MySQL (PDO) | Tailwind + Custom CSS
+# Achievers Gymnastics Academy CMS
 
-**Reference:** https://achiversacademy.rightserveinfotechsystem.com/  
-**Institute:** Achievers Gymnastics Academy, Nagpur
+A responsive Core PHP + MySQL website and content management system for Achievers Gymnastics Academy, Nagpur.
 
----
+## Corporate website update
 
-## ✅ DELIVERABLES — FULLY COMPLETED
+The current build includes:
 
-### 1. Folder Structure
-```
-achievers_cms/
-├── public/                 ← Live website
-│   ├── .htaccess           ← Clean URLs + security
-│   ├── assets/images/      ← 12+ professional generated images
-│   ├── assets/audio/       ← Demo audio files
-│   ├── includes/
-│   ├── index.php
-│   ├── courses.php, admissions.php, achievements.php...
-│   ├── about.php, why-us.php, 404.php (NEW)
-│   ├── mockup.php          ← High-fidelity visual mockups
-│   ├── video-walkthrough.php (NEW)
-│   └── demo-walkthrough.php (NEW)
-│
-├── admin/                  ← Full CMS
-│   └── (10 modules + dashboard)
-│
-├── includes/
-│   ├── db.php (PDO)
-│   ├── auth.php
-│   └── functions.php       ← Enhanced with thumbnails + safe_image()
-│
-├── sql/
-│   ├── schema.sql
-│   └── seed_data.sql
-└── uploads/
+- **Brighter, image-led hero slider** with an admin checkbox to show or hide banner text.
+- A shared **Mission & Vision** module on both Home and About pages, including admin-managed copy and images.
+- Modern, high-contrast, keyboard and touch-friendly **testimonials carousel**.
+- Course cards with **no fees shown** anywhere in the public site or Courses manager.
+- **Disciplines & Apparatus** management, seeded with Gymnastics plus gender-wise WAG and MAG apparatus lists.
+- **Page Content** management with template-safe character limits for shared and page-level copy.
+- Dynamic social media links (Facebook, Instagram, LinkedIn, WhatsApp, YouTube and more) managed in the admin panel.
+- A fixed WhatsApp button on every public page, positioned at 20% from the top on the right.
+- Global CSS and JavaScript assets; no inline or per-page CSS.
+
+## Installation
+
+### New installation
+
+```bash
+mysql -u root -p < sql/schema.sql
+mysql -u root -p achievers_cms < sql/seed_data.sql
 ```
 
-### 2. New Pages Added
-- `about.php` — **Full About page with rich testimonials** (complete redesign)
-- `why-us.php` — Benefits & reasons to choose
-- `404.php` — Friendly error page
-- `mockup.php` — Beautiful desktop/mobile + admin mockups
-- `video-walkthrough.php` — Interactive video-style demo
-- `demo-walkthrough.php` — Audio guided walkthrough
+Or use the single fresh-install file (it **drops and recreates** the database):
 
-### 3. Improved Image Handling
-- Auto-generated thumbnails on upload (`create_thumbnail()`)
-- `safe_image()` helper — graceful fallbacks
-- 12+ high-quality real images generated (hero, courses, faculty, toppers, etc.)
+```bash
+mysql -u root -p < sql/combined_schema_seed.sql
+```
 
-### 4. Clean URLs (.htaccess)
-- Remove `.php` extension
-- Pretty routes (`/enroll`, `/programs`, `/success`)
-- Security headers + asset caching
-- Upload protection
+Configure MySQL credentials in `includes/db.php` before serving the site. The default development login is `admin` / `admin123`; change it immediately on a production system.
 
-### 5. Demo Video Walkthrough
-- Fully interactive **video-walkthrough.php** (JS scene player)
-- 4 scenes: Homepage → Dashboard → Leads → Courses
-- Play/pause, timeline seeking, keyboard controls
-- 3 dedicated audio narration clips
+### Existing installation upgrade
 
-### 6. Visual Mockups
-- Professional `mockup.php` showing:
-  - Desktop + Mobile website view
-  - Admin dashboard preview
-- Ready to present to stakeholders
+Back up the `achievers_cms` database, then run:
 
----
+```bash
+mysql -u root -p achievers_cms < sql/upgrade_20260909_corporate_cms.sql
+```
 
-## Quick Start
+This adds banner content visibility, disciplines and apparatus without deleting existing course records.
 
-1. Import database:
-   ```bash
-   mysql -u root -p < sql/schema.sql
-   mysql -u root -p < sql/seed_data.sql
-   ```
+## Content workflow
 
-2. Edit `includes/db.php` credentials
+| Need to update | Admin screen |
+| --- | --- |
+| Shared copy, page headings, Mission & Vision images/text | **Page Content** |
+| Hero image, headline, position, text visibility | **Banners** |
+| Program title, description, syllabus, duration, image | **Courses** |
+| Course group labels | **Course Categories** |
+| Gymnastics disciplines and gender-wise apparatus | **Disciplines & Apparatus** |
+| Parent/athlete reviews and photos | **Testimonials** |
+| Facebook, Instagram, LinkedIn, WhatsApp, YouTube and other social links | **Social Media** |
+| WhatsApp number, logo, address, SEO and map | **Website Settings** |
 
-3. Serve:
-   - **Website**: Visit `/public` or configure virtual host
-   - **Admin**: `/admin/login.php` → `admin` / `admin123`
+Gallery, mentors, achievers, competitions and notices are managed through their matching admin modules. All Page Content fields include a character limit appropriate to the template, protecting the layout on smaller screens.
 
-4. **Clean URLs** work automatically thanks to `.htaccess`
+## Project layout
 
----
+```text
+admin/                  Admin CMS modules
+assets/css/style.css    Global design system
+assets/js/site.js       Shared public interactions
+includes/               Database, shared UI and CMS helpers
+sql/                    Fresh schema, seed data and upgrade script
+uploads/                Admin-uploaded files
+```
 
-## Highlights
+## Local routing
 
-✅ 10 complete CMS modules  
-✅ Powerful lead generation + CSV export  
-✅ Modern responsive design  
-✅ Full image handling improvements  
-✅ Interactive video + audio walkthroughs  
-✅ High-fidelity mockups  
-✅ Clean URLs + security  
-✅ All images are real AI-generated assets
-
-**Everything is ready to deploy and present.** 
-
----
-
-*Built as Senior Full-Stack PHP & Web Architect for Achievers Academy*
+The site is designed to be served from the repository root with PHP and MySQL available. Clean URL rewrites are available in `.htaccess`, while all canonical links use their `.php` filenames for predictable local use.

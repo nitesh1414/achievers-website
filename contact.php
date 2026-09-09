@@ -1,21 +1,32 @@
 <?php
-require_once __DIR__ . '/includes/header.php';
+require_once __DIR__ . "/includes/header.php";
 
-$phone = get_setting('phone', '+91 90965 94552');
-$whatsapp = get_setting('whatsapp', '919096594552');
-$email = get_setting('email', 'info@achieversacademy.com');
-$address = get_setting('address', 'Plot No. 45, Wardhaman Nagar, Nagpur - 440008');
-$map_embed = get_setting('google_map_embed', '');
+$phone = get_setting("phone", "+91 90965 94552");
+$whatsapp = get_setting("whatsapp", "919096594552");
+$email = get_setting("email", "info@achieversacademy.com");
+$address = get_setting(
+    "address",
+    "Plot No. 45, Wardhaman Nagar, Nagpur - 440008"
+);
+$map_embed = get_setting("google_map_embed", "");
+$social_links = get_social_links();
 ?>
 
 <div class="tail-container max-w-[1200px] mx-auto px-6 py-12">
     <!-- Page Header -->
     <div class="text-center mb-12">
         <div class="inline-flex items-center px-4 py-1.5 rounded-full bg-amber-100 text-amber-700 text-xs font-semibold tracking-wider mb-3">
-            GET IN TOUCH
+            <?= e(content_value("contact_label", "GET IN TOUCH")) ?>
         </div>
-        <h1 class="text-4xl md:text-5xl font-bold text-slate-900 tracking-tighter">Contact Achievers Academy</h1>
-        <p class="mt-3 text-lg text-slate-600 max-w-md mx-auto">We're here to answer your questions and help you get started on your gymnastics journey.</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-slate-900 tracking-tighter"><?= e(
+            content_value("contact_title", "Contact Achievers Academy")
+        ) ?></h1>
+        <p class="mt-3 text-lg text-slate-600 max-w-md mx-auto"><?= e(
+            content_value(
+                "contact_intro",
+                "We're here to answer your questions and help you get started on your gymnastics journey."
+            )
+        ) ?></p>
     </div>
 
     <div class="grid lg:grid-cols-12 gap-8">
@@ -36,7 +47,9 @@ $map_embed = get_setting('google_map_embed', '');
                         </div>
                         <div>
                             <div class="font-semibold text-sm text-slate-500">ADDRESS</div>
-                            <div class="text-slate-800 leading-snug"><?= htmlspecialchars($address) ?></div>
+                            <div class="text-slate-800 leading-snug"><?= htmlspecialchars(
+                                $address
+                            ) ?></div>
                         </div>
                     </div>
 
@@ -47,7 +60,9 @@ $map_embed = get_setting('google_map_embed', '');
                         </div>
                         <div>
                             <div class="font-semibold text-sm text-slate-500">PHONE / CALL</div>
-                            <a href="tel:<?= htmlspecialchars($phone) ?>" class="block text-lg font-medium hover:text-amber-600 transition-colors">
+                            <a href="tel:<?= htmlspecialchars(
+                                $phone
+                            ) ?>" class="block text-lg font-medium hover:text-amber-600 transition-colors">
                                 <?= htmlspecialchars($phone) ?>
                             </a>
                         </div>
@@ -60,7 +75,9 @@ $map_embed = get_setting('google_map_embed', '');
                         </div>
                         <div>
                             <div class="font-semibold text-sm text-slate-500">WHATSAPP</div>
-                            <a href="https://wa.me/<?= htmlspecialchars($whatsapp) ?>?text=Hi%20Achievers%20Academy" target="_blank"
+                            <a href="https://wa.me/<?= htmlspecialchars(
+                                $whatsapp
+                            ) ?>?text=Hi%20Achievers%20Academy" target="_blank"
                                 class="inline-flex items-center gap-1.5 text-emerald-600 hover:text-emerald-700 font-medium">
                                 <span>Chat on WhatsApp</span>
                                 <i class="fas fa-external-link-alt text-xs"></i>
@@ -75,7 +92,9 @@ $map_embed = get_setting('google_map_embed', '');
                         </div>
                         <div>
                             <div class="font-semibold text-sm text-slate-500">EMAIL US</div>
-                            <a href="mailto:<?= htmlspecialchars($email) ?>" class="block text-lg font-medium hover:text-blue-600 transition-colors">
+                            <a href="mailto:<?= htmlspecialchars(
+                                $email
+                            ) ?>" class="block text-lg font-medium hover:text-blue-600 transition-colors">
                                 <?= htmlspecialchars($email) ?>
                             </a>
                         </div>
@@ -83,48 +102,52 @@ $map_embed = get_setting('google_map_embed', '');
                 </div>
 
                 <!-- Social Links -->
-                <div class="mt-8 pt-6 border-t">
-                    <div class="text-xs font-semibold tracking-wider text-slate-500 mb-3">FOLLOW US</div>
-                    <div class="flex gap-3">
-                        <?php if ($ig = get_setting('instagram')): ?>
-                            <a href="<?= htmlspecialchars($ig) ?>" target="_blank"
-                                class="w-10 h-10 flex items-center justify-center bg-slate-100 hover:bg-pink-100 text-pink-600 hover:text-pink-700 rounded-2xl transition-colors"
-                                aria-label="Instagram">
-                                <i class="fab fa-instagram text-xl"></i>
-                            </a>
-                        <?php endif; ?>
-
-                        <?php if ($fb = get_setting('facebook')): ?>
-                            <a href="<?= htmlspecialchars($fb) ?>" target="_blank"
-                                class="w-10 h-10 flex items-center justify-center bg-slate-100 hover:bg-blue-100 text-blue-600 hover:text-blue-700 rounded-2xl transition-colors"
-                                aria-label="Facebook">
-                                <i class="fab fa-facebook-f text-xl"></i>
-                            </a>
-                        <?php endif; ?>
-
-                        <?php if ($li = get_setting('linkedin')): ?>
-                            <a href="<?= htmlspecialchars($li) ?>" target="_blank"
-                                class="w-10 h-10 flex items-center justify-center bg-slate-100 hover:bg-sky-100 text-sky-600 hover:text-sky-700 rounded-2xl transition-colors"
-                                aria-label="LinkedIn">
-                                <i class="fab fa-linkedin-in text-xl"></i>
-                            </a>
-                        <?php endif; ?>
-
-                        <a href="https://wa.me/<?= htmlspecialchars($whatsapp) ?>" target="_blank"
-                            class="w-10 h-10 flex items-center justify-center bg-slate-100 hover:bg-green-100 text-green-600 hover:text-green-700 rounded-2xl transition-colors"
-                            aria-label="WhatsApp">
-                            <i class="fab fa-whatsapp text-xl"></i>
-                        </a>
+                <?php if ($social_links): ?>
+                    <div class="mt-8 pt-6 border-t">
+                        <div class="text-xs font-semibold tracking-wider text-slate-500 mb-3">FOLLOW US</div>
+                        <div class="flex gap-3">
+                            <?php foreach ($social_links as $social): ?>
+                                <a href="<?= e(
+                                    $social["url"]
+                                ) ?>" target="_blank" rel="noopener noreferrer"
+                                    class="w-10 h-10 flex items-center justify-center bg-slate-100 hover:bg-amber-100 text-slate-700 hover:text-slate-900 rounded-2xl transition-colors"
+                                    aria-label="<?= e(
+                                        $social["platform"]
+                                    ) ?>" title="<?= e($social["platform"]) ?>">
+                                    <i class="<?= e(
+                                        social_icon_family(
+                                            $social["icon"] ?? "",
+                                            $social["platform"]
+                                        ) .
+                                            " " .
+                                            social_icon_class(
+                                                $social["icon"] ?? "",
+                                                $social["platform"]
+                                            )
+                                    ) ?> text-xl"></i>
+                                </a>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
             </div>
         </div>
 
         <!-- Quick Enquiry Form -->
         <div class="lg:col-span-7">
             <div class="bg-white border border-slate-200 shadow-sm rounded-3xl p-8">
-                <h3 class="font-bold text-xl mb-1">Send us a quick message</h3>
-                <p class="text-sm text-slate-500 mb-6">We'll get back to you within a few hours.</p>
+                <h3 class="font-bold text-xl mb-1"><?= e(
+                    content_value(
+                        "contact_form_title",
+                        "Send us a quick message"
+                    )
+                ) ?></h3>
+                <p class="text-sm text-slate-500 mb-6"><?= e(
+                    content_value(
+                        "contact_form_text",
+                        "We'll get back to you within a few hours."
+                    )
+                ) ?></p>
 
                 <form method="POST" action="admissions" class="space-y-5">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -178,20 +201,45 @@ $map_embed = get_setting('google_map_embed', '');
                 <div class="aspect-video w-full">
                     <?php
                     // === FINAL FIX: Render Google Map (never shows raw code) ===
-                    $map_html = trim($map_embed ?? '');
+                    $map_html = trim($map_embed ?? "");
 
                     if (!empty($map_html)) {
                         // Decode escaped content (handles previous saves)
-                        $map_html = html_entity_decode($map_html, ENT_QUOTES | ENT_HTML5);
-                        $map_html = htmlspecialchars_decode($map_html, ENT_QUOTES | ENT_HTML5);
+                        $map_html = html_entity_decode(
+                            $map_html,
+                            ENT_QUOTES | ENT_HTML5
+                        );
+                        $map_html = htmlspecialchars_decode(
+                            $map_html,
+                            ENT_QUOTES | ENT_HTML5
+                        );
 
                         // Strip any remaining escaped tags
-                        $map_html = str_replace(['&lt;iframe', '&lt;/iframe&gt;', '&amp;lt;', '&amp;gt;'], ['<iframe', '</iframe>', '<', '>'], $map_html);
+                        $map_html = str_replace(
+                            [
+                                "&lt;iframe",
+                                "&lt;/iframe&gt;",
+                                "&amp;lt;",
+                                "&amp;gt;",
+                            ],
+                            ["<iframe", "</iframe>", "<", ">"],
+                            $map_html
+                        );
 
                         // If user pasted only a URL instead of full iframe
-                        if (stripos($map_html, '<iframe') === false && (filter_var($map_html, FILTER_VALIDATE_URL) || stripos($map_html, 'google') !== false)) {
-                            $src = htmlspecialchars($map_html, ENT_QUOTES, 'UTF-8');
-                            echo '<iframe src="' . $src . '" width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>';
+                        if (
+                            stripos($map_html, "<iframe") === false &&
+                            (filter_var($map_html, FILTER_VALIDATE_URL) ||
+                                stripos($map_html, "google") !== false)
+                        ) {
+                            $src = htmlspecialchars(
+                                $map_html,
+                                ENT_QUOTES,
+                                "UTF-8"
+                            );
+                            echo '<iframe src="' .
+                                $src .
+                                '" class="map-embed-frame" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>';
                         } else {
                             // Output the iframe HTML directly — this is what makes the map appear
                             echo $map_html;
@@ -218,7 +266,7 @@ $map_embed = get_setting('google_map_embed', '');
 
     <!-- Quick CTA -->
     <div class="mt-12 text-center">
-        <a href="admissions"
+        <a href="admissions.php"
             class="inline-flex items-center gap-x-3 px-8 py-3.5 bg-slate-900 hover:bg-black text-white rounded-full font-semibold text-sm transition-all">
             <span>Book a Free Trial Class</span>
             <i class="fas fa-arrow-right"></i>
@@ -227,4 +275,4 @@ $map_embed = get_setting('google_map_embed', '');
     </div>
 </div>
 
-<?php require_once __DIR__ . '/includes/footer.php'; ?>
+<?php require_once __DIR__ . "/includes/footer.php"; ?>
