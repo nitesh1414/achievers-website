@@ -12,28 +12,29 @@ $map_embed = get_setting("google_map_embed", "");
 $social_links = get_social_links();
 ?>
 
-<div class="tail-container max-w-[1200px] mx-auto px-6 py-12">
+<section class="page-shell">
+    <div class="tail-container">
     <!-- Page Header -->
-    <div class="text-center mb-12">
-        <div class="inline-flex items-center px-4 py-1.5 rounded-full bg-amber-100 text-amber-700 text-xs font-semibold tracking-wider mb-3">
+    <header class="page-header text-center">
+        <span class="section-kicker">
             <?= e(content_value("contact_label", "GET IN TOUCH")) ?>
-        </div>
-        <h1 class="text-4xl md:text-5xl font-bold text-slate-900 tracking-tighter"><?= e(
+        </span>
+        <h1><?= e(
             content_value("contact_title", "Contact Achievers Academy")
         ) ?></h1>
-        <p class="mt-3 text-lg text-slate-600 max-w-md mx-auto"><?= e(
+        <p><?= e(
             content_value(
                 "contact_intro",
                 "We're here to answer your questions and help you get started on your gymnastics journey."
             )
         ) ?></p>
-    </div>
+    </header>
 
     <div class="grid lg:grid-cols-12 gap-8">
 
         <!-- Contact Info -->
         <div class="lg:col-span-5">
-            <div class="bg-white border border-slate-200 shadow-sm rounded-3xl p-8">
+            <div class="bg-white border border-slate-200 shadow-sm rounded-2xl p-6">
                 <h3 class="font-bold text-xl mb-6 flex items-center gap-3">
                     <i class="fas fa-map-marker-alt text-amber-500"></i>
                     Our Location
@@ -135,7 +136,7 @@ $social_links = get_social_links();
 
         <!-- Quick Enquiry Form -->
         <div class="lg:col-span-7">
-            <div class="bg-white border border-slate-200 shadow-sm rounded-3xl p-8">
+            <div class="bg-white border border-slate-200 shadow-sm rounded-2xl p-6">
                 <h3 class="font-bold text-xl mb-1"><?= e(
                     content_value(
                         "contact_form_title",
@@ -190,7 +191,7 @@ $social_links = get_social_links();
 
     <!-- Google Map -->
     <?php if (!empty($map_embed)): ?>
-        <div class="mt-12">
+        <div class="mt-8">
             <div class="flex items-center gap-3 mb-4">
                 <div class="w-8 h-px bg-slate-300 flex-1"></div>
                 <div class="uppercase tracking-[2px] text-xs font-semibold text-slate-400">Visit Us</div>
@@ -255,7 +256,7 @@ $social_links = get_social_links();
             </div>
         </div>
     <?php else: ?>
-        <div class="mt-12 bg-slate-100 border border-dashed border-slate-300 rounded-3xl p-8 text-center">
+        <div class="mt-8 bg-slate-100 border border-dashed border-slate-300 rounded-3xl p-8 text-center">
             <div class="text-slate-400 mb-1">
                 <i class="fas fa-map fa-2x"></i>
             </div>
@@ -265,7 +266,7 @@ $social_links = get_social_links();
     <?php endif; ?>
 
     <!-- Quick CTA -->
-    <div class="mt-12 text-center">
+    <div class="mt-8 text-center">
         <a href="admissions.php"
             class="inline-flex items-center gap-x-3 px-8 py-3.5 bg-slate-900 hover:bg-black text-white rounded-full font-semibold text-sm transition-all">
             <span>Book a Free Trial Class</span>
@@ -273,6 +274,7 @@ $social_links = get_social_links();
         </a>
         <div class="text-xs text-slate-400 mt-3">No commitment • Ages 5-18 welcome</div>
     </div>
-</div>
+    </div>
+</section>
 
 <?php require_once __DIR__ . "/includes/footer.php"; ?>

@@ -14,7 +14,7 @@ $mockup_whatsapp_message = rawurlencode(content_value('whatsapp_message', 'Hi Ac
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="assets/css/style.css?v=20260909">
+    <link rel="stylesheet" href="assets/css/style.css?v=20260909-compact">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body class="bg-slate-100 py-12">

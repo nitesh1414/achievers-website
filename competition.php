@@ -13,7 +13,8 @@ if (!$comp) {
     exit();
 }
 ?>
-<div class="tail-container w-full max-w-[1400px] mx-auto px-6 md:px-10 py-12">
+<section class="page-shell">
+    <div class="tail-container">
     <a href="competitions.php" class="text-sm text-amber-600 hover:underline mb-4 inline-block">← <?= e(
         content_value("competition_back_label", "Back to competitions")
     ) ?></a>
@@ -27,7 +28,7 @@ if (!$comp) {
 ) ?>">
         <?php endif; ?>
 
-        <div class="p-8 md:p-10">
+        <div class="p-6 md:p-8">
             <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span class="px-3 py-1 rounded-full text-xs font-bold <?= $comp[
                     "type"
@@ -44,18 +45,18 @@ if (!$comp) {
                 <?php endif; ?>
             </div>
 
-            <h1 class="text-4xl font-extrabold tracking-tight mb-2"><?= htmlspecialchars(
+            <h1 class="detail-title"><?= htmlspecialchars(
                 $comp["title"]
             ) ?></h1>
 
             <?php if (!empty($comp["location"])): ?>
-                <div class="text-lg text-slate-600 mb-6">📍 <?= htmlspecialchars(
+                <div class="detail-location">📍 <?= htmlspecialchars(
                     $comp["location"]
                 ) ?></div>
             <?php endif; ?>
 
             <?php if (!empty($comp["description"])): ?>
-                <div class="prose max-w-none mb-8">
+                <div class="prose max-w-none mb-6">
                     <h3 class="text-xl font-semibold mb-2"><?= e(
                         content_value(
                             "competition_about_label",
@@ -72,7 +73,7 @@ if (!$comp) {
                 $comp["type"] === "future" &&
                 !empty($comp["how_to_apply"])
             ): ?>
-                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6 mb-8">
+                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6 mb-6">
                     <h3 class="font-semibold text-amber-800 mb-2"><?= e(
                         content_value(
                             "competition_apply_label",
@@ -86,7 +87,7 @@ if (!$comp) {
             <?php endif; ?>
 
             <?php if ($comp["type"] === "past" && !empty($comp["results"])): ?>
-                <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 mb-8">
+                <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 mb-6">
                     <h3 class="font-semibold text-emerald-800 mb-2"><?= e(
                         content_value("competition_results_label", "Results")
                     ) ?></h3>
@@ -96,7 +97,7 @@ if (!$comp) {
                 </div>
             <?php endif; ?>
 
-            <div class="mt-8 pt-6 border-t flex flex-wrap gap-3">
+            <div class="mt-6 pt-5 border-t flex flex-wrap gap-3">
                 <a href="competitions.php" class="btn-primary px-6 py-2.5 text-sm">Back to All Competitions</a>
                 <a href="contact.php" class="btn-accent px-6 py-2.5 text-sm"><?= e(
                     content_value(
@@ -108,5 +109,6 @@ if (!$comp) {
         </div>
     </div>
 </div>
+</section>
 
 <?php require_once __DIR__ . "/includes/footer.php"; ?>
