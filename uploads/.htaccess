@@ -1,0 +1,6 @@
+# Protect uploads folder
+Options -Indexes
+<FilesMatch "\.(php|php[0-9]|phtml|pl|py|jsp|asp|sh|cgi)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
