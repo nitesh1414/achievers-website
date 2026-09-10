@@ -129,7 +129,7 @@ $stats = [
 
 <section class="trust-bar" aria-label="Academy highlights">
     <div class="tail-container trust-bar__inner">
-        <div class="trust-bar__list"><span><i class="fa-solid fa-trophy" aria-hidden="true"></i> National champions</span><span>International coaching</span><span>FIG-standard facility</span></div>
+        <div class="trust-bar__list"><span><i class="fa-solid fa-trophy" aria-hidden="true"></i> National champions</span><span>International coaching</span><span>Purpose-built facility</span></div>
         <div class="trust-bar__stats"><span><strong><?= e(
             $stats["medals"]
         ) ?></strong> medals</span><span><strong><?= e(

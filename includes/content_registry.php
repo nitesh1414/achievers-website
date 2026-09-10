@@ -147,7 +147,7 @@ return [
                 "max" => 180,
                 "rows" => 2,
                 "default" =>
-                    "FIG-informed coaching that meets every athlete at their level.",
+                    "Athlete-first coaching that meets every athlete at their level.",
             ],
             [
                 "key" => "home_why_2_icon",

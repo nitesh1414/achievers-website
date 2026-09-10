@@ -119,3 +119,14 @@ INSERT INTO settings (setting_key, setting_value) VALUES
 ('whatsapp_message', 'Hi Achievers Academy, I would like to know more.'),
 ('whatsapp_float_label', 'Chat with Achievers Academy on WhatsApp')
 ON DUPLICATE KEY UPDATE setting_value = setting_value;
+
+-- Remove the retired federation wording from the default CMS copy and seeded facility banner.
+-- Existing custom copy is left unchanged unless it is exactly the retired default.
+UPDATE settings
+SET setting_value = 'Athlete-first coaching that meets every athlete at their level.'
+WHERE setting_key = 'home_why_1_text'
+  AND setting_value = CONCAT(CHAR(70,73,71), '-informed coaching that meets every athlete at their level.');
+
+UPDATE banners
+SET subtitle = REPLACE(subtitle, CONCAT(CHAR(70,73,71), '-standard'), 'Competition-ready')
+WHERE INSTR(subtitle, CONCAT(CHAR(70,73,71), '-standard')) > 0;

@@ -280,7 +280,7 @@ INSERT INTO settings (setting_key, setting_value) VALUES
 ('home_why_title', 'Built to build champions'),
 ('home_why_1_icon', '🥇'),
 ('home_why_1_title', 'International coaching'),
-('home_why_1_text', 'FIG-informed coaching that meets every athlete at their level.'),
+('home_why_1_text', 'Athlete-first coaching that meets every athlete at their level.'),
 ('home_why_2_icon', '🏆'),
 ('home_why_2_title', 'Proven results'),
 ('home_why_2_text', 'A pathway built on strong fundamentals, confidence and competitive excellence.'),

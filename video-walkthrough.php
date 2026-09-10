@@ -10,13 +10,16 @@ $video_whatsapp_message = rawurlencode(content_value('whatsapp_message', 'Hi Ach
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Walkthrough • Achievers Academy CMS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="assets/css/style.css?v=20260909-compact">
+    <link rel="stylesheet" href="assets/css/style.css?v=20260909-compact-3">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body class="bg-slate-900 text-white">
     <?php if ($video_whatsapp): ?><a class="whatsapp-float" href="https://wa.me/<?= e($video_whatsapp) ?>?text=<?= e($video_whatsapp_message) ?>" target="_blank" rel="noopener noreferrer" aria-label="<?= e(content_value('whatsapp_float_label', 'Chat on WhatsApp')) ?>"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i><span>WhatsApp</span></a><?php endif; ?>
-    <div class="max-w-5xl mx-auto pt-8 pb-12 px-5">
+    <main class="video-walkthrough max-w-5xl mx-auto pt-8 pb-12 px-5">
         <div class="flex justify-between items-center mb-6">
             <div>
                 <div class="flex items-center gap-x-2">
@@ -31,7 +34,7 @@ $video_whatsapp_message = rawurlencode(content_value('whatsapp_message', 'Hi Ach
             </div>
         </div>
         
-        <h1 class="text-4xl font-extrabold mb-1">Quick Demo Video Walkthrough</h1>
+        <h1 class="video-walkthrough__title">Quick Demo Video Walkthrough</h1>
         <p class="text-slate-300 mb-8">Interactive 90-second guided tour of the full system. Click any scene or use controls.</p>
         
         <!-- VIDEO PLAYER -->
@@ -129,7 +132,7 @@ $video_whatsapp_message = rawurlencode(content_value('whatsapp_message', 'Hi Ach
         <div class="text-center mt-4">
             <a href="demo-walkthrough" class="text-sm underline text-amber-300">Or listen to the full audio-only walkthrough</a>
         </div>
-    </div>
+    </main>
     
     <script>
         let currentScene = 1;
