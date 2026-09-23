@@ -79,8 +79,9 @@ $edit = isset($_GET["edit"])
                 <input type="hidden" name="save" value="1">
                 <?php if ($edit): ?>
                     <input type="hidden" name="id" value="<?= $edit["id"] ?>">
-                    <input type="hidden" name="old_photo" value="<?= "../" .
-                        htmlspecialchars($edit["photo"]) ?>">
+                    <input type="hidden" name="old_photo" value="<?= e(
+                        public_asset_path($edit["photo"])
+                    ) ?>">
                 <?php endif; ?>
 
                 <div class="space-y-4">
@@ -113,12 +114,11 @@ $edit = isset($_GET["edit"])
                         <?php if (
                             $edit &&
                             $edit["photo"]
-                        ): ?><img src="<?= "../" .
-    htmlspecialchars(
-        $edit["photo"]
-    ) ?>" class="h-16 mb-1 rounded"><br><?php endif; ?>
+                        ): ?><img src="../<?= e(
+    public_asset_path($edit["photo"])
+) ?>" class="h-16 w-24 object-contain bg-slate-100 mb-1 rounded"><br><?php endif; ?>
                         <input type="file" name="photo" accept="image/*">
-                        <p class="content-manager__hint">Upload exactly 1200 × 600 px (2:1) so the public mentor card displays without an unexpected crop. JPG, PNG, WEBP or GIF; max 5 MB.</p>
+                        <p class="content-manager__hint">Upload exactly 900 × 1200 px (3:4 portrait) so the public mentor card displays without an unexpected crop. JPG, PNG, WEBP or GIF; max 5 MB.</p>
                     </div>
                     <button class="btn-primary px-7 py-2 text-sm">Save Mentor</button>
                     <a href="mentor.php" class="ml-3">Cancel</a>
@@ -142,10 +142,12 @@ $edit = isset($_GET["edit"])
             <tbody>
                 <?php foreach ($mentor as $f): ?>
                     <tr>
-                        <td><img src="<?= "../" .
-                            htmlspecialchars(
-                                $f["photo"] ?: "assets/images/mentor-pankaj.jpg"
-                            ) ?>" class="w-11 h-11 object-cover rounded"></td>
+                        <td><img src="../<?= e(
+                            public_asset_path(
+                                $f["photo"],
+                                "assets/images/mentor-pankaj.jpg"
+                            )
+                        ) ?>" class="w-11 h-11 object-contain bg-slate-100 rounded"></td>
                         <td><strong><?= htmlspecialchars(
                             $f["name"]
                         ) ?></strong><br><span class="text-xs"><?= htmlspecialchars(

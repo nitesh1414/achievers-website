@@ -23,9 +23,10 @@ $team_members = db_get_all(
         <?php if ($team_members): ?>
             <div class="data-grid">
                 <?php foreach ($team_members as $member): ?>
+                    <?php $member_photo = public_asset_path($member["photo"]); ?>
                     <article class="profile-card team-card">
-                        <?php if (!empty($member["photo"])): ?>
-                            <img src="<?= e($member["photo"]) ?>" alt="<?= e($member["name"]) ?>" loading="lazy">
+                        <?php if ($member_photo): ?>
+                            <img src="<?= e($member_photo) ?>" alt="<?= e($member["name"]) ?>" loading="lazy">
                         <?php else: ?>
                             <div class="team-card__placeholder" aria-hidden="true"><i class="fa-solid fa-users"></i></div>
                         <?php endif; ?>

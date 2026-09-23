@@ -23,6 +23,21 @@ function e($value)
 }
 
 /**
+ * Normalise a saved public asset path, including older values that were stored
+ * with a leading ../ prefix by legacy admin forms.
+ */
+function public_asset_path($path, $fallback = "")
+{
+    $path = trim((string) $path);
+    if ($path === "") {
+        $path = $fallback;
+    }
+    $path = str_replace("\\", "/", $path);
+    $path = preg_replace("~^(?:\./|\.\./)+~", "", $path);
+    return ltrim($path, "/");
+}
+
+/**
  * Get the CMS content registry. It contains each editable page field and its
  * template-safe text limit, used by the Content Manager and public templates.
  */

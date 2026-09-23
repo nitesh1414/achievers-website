@@ -282,12 +282,14 @@ img { max-width: 100%; }
 /* Generic cards, list pages & gallery */
 .data-grid { display: grid; gap: 1.4rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .profile-card, .achievement-card, .competition-card { background: #fff; border: 1px solid #dfe7ee; border-radius: 1.35rem; overflow: hidden; }
-.profile-card img, .achievement-card img, .competition-card img { height: 13.5rem; object-fit: cover; width: 100%; }
+/* Portrait staff photos are contained instead of cropped, keeping the full person visible. */
+.profile-card img { aspect-ratio: 3 / 4; background: #edf5fb; display: block; height: auto; object-fit: contain; object-position: center; width: 100%; }
+.achievement-card img, .competition-card img { height: 13.5rem; object-fit: cover; width: 100%; }
 .profile-card__body, .achievement-card__body, .competition-card__body { padding: 1.35rem; }
 .profile-card h2, .achievement-card h2, .competition-card h2 { font-size: 1.05rem; font-weight: 600; margin: 0; }
 .profile-card p, .achievement-card p, .competition-card p { color: var(--slate-600); font-size: .88rem; }
-.team-card__designation { color: var(--gold-600) !important; font-family: 'Poppins', Arial, sans-serif; font-weight: 600; }
-.team-card__placeholder { align-items: center; background: linear-gradient(135deg, #edf5fb, #dbeaf5); color: var(--navy-800); display: flex; font-size: 2.25rem; height: 13.5rem; justify-content: center; width: 100%; }
+.mentor-card__designation, .team-card__designation { color: var(--gold-600) !important; font-family: 'Poppins', Arial, sans-serif; font-weight: 600; }
+.team-card__placeholder { align-items: center; aspect-ratio: 3 / 4; background: linear-gradient(135deg, #edf5fb, #dbeaf5); color: var(--navy-800); display: flex; font-size: 2.25rem; justify-content: center; width: 100%; }
 .gallery-grid { display: grid; gap: 1rem; grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .gallery-item { background: #fff; border: 1px solid #dfe7ee; border-radius: 1rem; cursor: pointer; overflow: hidden; text-align: left; transition: transform .25s ease, box-shadow .25s ease; }
 .gallery-item:hover { box-shadow: var(--shadow-sm); transform: translateY(-4px); }

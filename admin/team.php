@@ -105,7 +105,7 @@ $edit = isset($_GET["edit"])
                 <?php if ($edit): ?>
                     <input type="hidden" name="id" value="<?= (int) $edit["id"] ?>">
                     <input type="hidden" name="old_photo" value="<?= e(
-                        $edit["photo"]
+                        public_asset_path($edit["photo"])
                     ) ?>">
                 <?php endif; ?>
 
@@ -160,11 +160,11 @@ $edit = isset($_GET["edit"])
                         <label class="block text-xs font-semibold">Profile photo</label>
                         <?php if ($edit && !empty($edit["photo"])): ?>
                             <img src="../<?= e(
-                                $edit["photo"]
-                            ) ?>" class="h-16 w-24 object-cover mb-2 rounded" alt="Current profile photo">
+                                public_asset_path($edit["photo"])
+                            ) ?>" class="h-16 w-24 object-contain bg-slate-100 mb-2 rounded" alt="Current profile photo">
                         <?php endif; ?>
                         <input type="file" name="photo" accept="image/jpeg,image/png,image/webp,image/gif" class="text-sm">
-                        <p class="content-manager__hint">Upload exactly 1200 × 600 px (2:1) so the public team card displays without an unexpected crop. JPG, PNG, WEBP or GIF; maximum 5 MB.</p>
+                        <p class="content-manager__hint">Upload exactly 900 × 1200 px (3:4 portrait) so the public team card displays without an unexpected crop. JPG, PNG, WEBP or GIF; maximum 5 MB.</p>
                     </div>
                     <div class="flex gap-3 pt-2">
                         <button class="btn-primary px-7 py-2 text-sm">Save team member</button>
@@ -196,8 +196,8 @@ $edit = isset($_GET["edit"])
                         <td>
                             <?php if (!empty($member["photo"])): ?>
                                 <img src="../<?= e(
-                                    $member["photo"]
-                                ) ?>" class="w-11 h-11 object-cover rounded" alt="<?= e(
+                                    public_asset_path($member["photo"])
+                                ) ?>" class="w-11 h-11 object-contain bg-slate-100 rounded" alt="<?= e(
     $member["name"]
 ) ?>">
                             <?php else: ?>
