@@ -172,7 +172,7 @@ $show_apparatus_form =
                 !empty($edit_discipline["image"])
             ): ?><img src="../<?= e(
     $edit_discipline["image"]
-) ?>" class="content-manager__preview" alt="Current discipline image"><?php endif; ?><input type="file" name="image" accept="image/jpeg,image/png,image/webp,image/gif" class="mt-2"></div>
+) ?>" class="content-manager__preview" alt="Current discipline image"><?php endif; ?><input type="file" name="image" accept="image/jpeg,image/png,image/webp,image/gif" class="mt-2"><p class="content-manager__hint">Upload exactly 1200 × 600 px (2:1) for the public discipline card. JPG, PNG, WEBP or GIF; max 5 MB.</p></div>
             <div class="grid grid-cols-2 gap-4"><div><label class="block text-xs font-semibold mb-1">Sort order</label><input type="number" name="sort_order" value="<?= (int) ($edit_discipline[
                 "sort_order"
             ] ??

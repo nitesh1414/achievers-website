@@ -45,6 +45,7 @@ return [
                 "label" => "Mission image",
                 "type" => "image",
                 "default" => "assets/images/hero-main.jpg",
+                "image_hint" => "Upload exactly 1200 × 900 px (4:3) for the responsive Mission card crop.",
             ],
             [
                 "key" => "mission_image_alt",
@@ -81,6 +82,7 @@ return [
                 "label" => "Vision image",
                 "type" => "image",
                 "default" => "assets/images/hero-facility.jpg",
+                "image_hint" => "Upload exactly 1200 × 900 px (4:3) for the responsive Vision card crop.",
             ],
             [
                 "key" => "vision_image_alt",
@@ -415,7 +417,7 @@ return [
     "mentors" => [
         "label" => "Mentors Page",
         "description" =>
-            "Mentor page headings. Team profiles and photos are managed in Mentors.",
+            "Mentor page headings. Mentor profiles and photos are managed in Mentors.",
         "fields" => [
             [
                 "key" => "mentors_title",
@@ -432,6 +434,52 @@ return [
                 "rows" => 3,
                 "default" =>
                     "Led by an experienced coaching team, we help every student reach their full potential.",
+            ],
+        ],
+    ],
+    "team" => [
+        "label" => "Our Team Page",
+        "description" =>
+            "Team page headings. Team profiles and photos are managed in Our Team.",
+        "fields" => [
+            [
+                "key" => "team_label",
+                "label" => "Page eyebrow",
+                "type" => "text",
+                "max" => 45,
+                "default" => "THE PEOPLE BEHIND ACHIEVERS",
+            ],
+            [
+                "key" => "team_title",
+                "label" => "Page title",
+                "type" => "text",
+                "max" => 60,
+                "default" => "Our team",
+            ],
+            [
+                "key" => "team_intro",
+                "label" => "Introduction",
+                "type" => "textarea",
+                "max" => 240,
+                "rows" => 3,
+                "default" =>
+                    "Meet the dedicated people who create a safe, encouraging and focused experience for every gymnast.",
+            ],
+            [
+                "key" => "team_empty_title",
+                "label" => "Empty-state title",
+                "type" => "text",
+                "max" => 100,
+                "default" => "Our team will be introduced here soon.",
+            ],
+            [
+                "key" => "team_empty_text",
+                "label" => "Empty-state description",
+                "type" => "textarea",
+                "max" => 180,
+                "rows" => 2,
+                "default" =>
+                    "Please check back soon to meet the people who support every gymnast’s journey.",
             ],
         ],
     ],

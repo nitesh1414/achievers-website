@@ -128,7 +128,7 @@ $edit = isset($_GET["edit"])
                 !empty($edit["image"])
             ): ?><img src="../<?= e(
     $edit["image"]
-) ?>" class="content-manager__preview" alt="Current banner preview"><?php endif; ?><input type="file" name="image" accept="image/jpeg,image/png,image/webp,image/gif" class="mt-2"><p class="content-manager__hint">Landscape image recommended; JPG, PNG, WEBP or GIF, max 5 MB.</p></div>
+) ?>" class="content-manager__preview" alt="Current banner preview"><?php endif; ?><input type="file" name="image" accept="image/jpeg,image/png,image/webp,image/gif" class="mt-2"><p class="content-manager__hint">Upload exactly 1920 × 900 px for the responsive hero banner. JPG, PNG, WEBP or GIF; max 5 MB.</p></div>
             <div class="flex gap-2"><button type="submit" class="btn-primary px-7 py-2 text-sm">Save banner</button><a href="banners.php" class="px-5 py-2 text-sm border rounded-xl">Cancel</a></div>
         </form>
     <?php endif; ?>

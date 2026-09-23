@@ -100,6 +100,7 @@ $edit = isset($_GET["edit"])
                     <input type="file" name="image" accept="image/*" <?= !$edit
                         ? "required"
                         : "" ?>>
+                    <p class="content-manager__hint">Upload exactly 1000 × 800 px (5:4) for the public gallery tile. JPG, PNG, WEBP or GIF; max 5 MB.</p>
                 </div>
                 
                 <div>

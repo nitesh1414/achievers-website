@@ -129,7 +129,7 @@ foreach (
             ) ?>" placeholder="YouTube URL" class="border px-3 py-2 rounded-xl">
         </div></section>
 
-        <section class="border-t pt-6"><h2 class="font-bold text-lg mb-4">Brand image and SEO</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-5"><div><label class="text-xs font-semibold">Logo (upload new)</label><input type="file" name="logo" accept="image/jpeg,image/png,image/webp,image/gif" class="w-full"><?php if (
+        <section class="border-t pt-6"><h2 class="font-bold text-lg mb-4">Brand image and SEO</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-5"><div><label class="text-xs font-semibold">Logo (upload new)</label><input type="file" name="logo" accept="image/jpeg,image/png,image/webp,image/gif" class="w-full"><p class="content-manager__hint">Upload exactly 600 × 200 px with a transparent background for the header and footer logo.</p><?php if (
             !empty($settings["logo"])
         ): ?><img src="../<?= e(
     $settings["logo"]

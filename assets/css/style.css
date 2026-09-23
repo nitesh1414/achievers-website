@@ -272,7 +272,7 @@ img { max-width: 100%; }
 .apparatus-list li { background: #f1f6fa; border-radius: 999px; color: var(--slate-700); font-size: .72rem; padding: .26rem .55rem; }
 
 /* About */
-.about-philosophy { margin-top: clamp(2.5rem, 4vw, 4rem); }
+.about-philosophy { margin-bottom: clamp(2.25rem, 3.5vw, 3.5rem); margin-top: clamp(2.5rem, 4vw, 4rem); }
 .about-philosophy__body { color: var(--slate-700); font-size: .96rem; max-width: 800px; }
 .about-stats { display: grid; gap: .75rem; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 1.8rem; }
 .about-stat { background: #fff; border: 1px solid #dbe5ed; border-radius: 1rem; padding: 1rem; }
@@ -286,6 +286,8 @@ img { max-width: 100%; }
 .profile-card__body, .achievement-card__body, .competition-card__body { padding: 1.35rem; }
 .profile-card h2, .achievement-card h2, .competition-card h2 { font-size: 1.05rem; font-weight: 600; margin: 0; }
 .profile-card p, .achievement-card p, .competition-card p { color: var(--slate-600); font-size: .88rem; }
+.team-card__designation { color: var(--gold-600) !important; font-family: 'Poppins', Arial, sans-serif; font-weight: 600; }
+.team-card__placeholder { align-items: center; background: linear-gradient(135deg, #edf5fb, #dbeaf5); color: var(--navy-800); display: flex; font-size: 2.25rem; height: 13.5rem; justify-content: center; width: 100%; }
 .gallery-grid { display: grid; gap: 1rem; grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .gallery-item { background: #fff; border: 1px solid #dfe7ee; border-radius: 1rem; cursor: pointer; overflow: hidden; text-align: left; transition: transform .25s ease, box-shadow .25s ease; }
 .gallery-item:hover { box-shadow: var(--shadow-sm); transform: translateY(-4px); }

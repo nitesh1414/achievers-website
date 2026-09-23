@@ -168,7 +168,7 @@ $edit_course =
                     !empty($edit_course["thumbnail"])
                 ): ?><img src="../<?= e(
     $edit_course["thumbnail"]
-) ?>" class="content-manager__preview" alt="Current course thumbnail"><?php endif; ?><input type="file" name="thumbnail" accept="image/jpeg,image/png,image/webp,image/gif" class="w-full text-sm mt-2"><p class="content-manager__hint">JPG, PNG, WEBP or GIF; max 5 MB.</p></div>
+) ?>" class="content-manager__preview" alt="Current course thumbnail"><?php endif; ?><input type="file" name="thumbnail" accept="image/jpeg,image/png,image/webp,image/gif" class="w-full text-sm mt-2"><p class="content-manager__hint">Upload exactly 1200 × 600 px (2:1) for the public course card. JPG, PNG, WEBP or GIF; max 5 MB.</p></div>
                 <div><label class="block text-xs font-semibold mb-1">Status</label><select name="status" class="w-full border px-3 py-2 rounded-xl"><option value="active" <?= ($edit_course[
                     "status"
                 ] ??

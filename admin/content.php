@@ -148,7 +148,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["save_content"])) {
 ] ?> characters. Longer copy is trimmed automatically when saved.</p><?php endif; ?>
                 <?php if (
                     $field["type"] === "image"
-                ): ?><p class="content-manager__hint">JPG, PNG, WEBP or GIF; maximum 5 MB. A landscape image is recommended.</p><?php endif; ?>
+                ): ?><p class="content-manager__hint"><?= e(
+    $field["image_hint"] ??
+        "Upload exactly 1200 × 900 px (4:3) for the responsive public crop."
+) ?> JPG, PNG, WEBP or GIF; maximum 5 MB.</p><?php endif; ?>
             </div>
         <?php endforeach; ?>
 

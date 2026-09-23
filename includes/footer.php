@@ -65,6 +65,7 @@ $footer_whatsapp_message = rawurlencode(
                     <a href="about.php">About us</a>
                     <a href="courses.php">Training programs</a>
                     <a href="mentor.php">Our mentors</a>
+                    <a href="team.php">Our team</a>
                     <a href="achievements.php">Achievements</a>
                     <a href="competitions.php">Competitions</a>
                     <a href="notices.php">Notices</a>

@@ -141,6 +141,7 @@ $i
                     ) ?>" class="h-14 rounded mb-1 object-cover">
                 <?php endif; ?>
                 <input type="file" name="photo" accept="image/*" class="text-sm">
+                <p class="content-manager__hint">Upload exactly 600 × 600 px (square) for the circular testimonial avatar. JPG, PNG, WEBP or GIF; max 5 MB.</p>
                 <div class="text-[10px] text-slate-500">Leave blank to keep existing photo</div>
             </div>
 

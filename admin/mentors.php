@@ -118,6 +118,7 @@ $edit = isset($_GET["edit"])
         $edit["photo"]
     ) ?>" class="h-16 mb-1 rounded"><br><?php endif; ?>
                         <input type="file" name="photo" accept="image/*">
+                        <p class="content-manager__hint">Upload exactly 1200 × 600 px (2:1) so the public mentor card displays without an unexpected crop. JPG, PNG, WEBP or GIF; max 5 MB.</p>
                     </div>
                     <button class="btn-primary px-7 py-2 text-sm">Save Mentor</button>
                     <a href="mentor.php" class="ml-3">Cancel</a>

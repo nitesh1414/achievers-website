@@ -100,6 +100,7 @@ $edit = isset($_GET["edit"])
     $edit["photo"]
 ) ?>" class="h-14 rounded mb-1"><br><?php endif; ?>
                     <input type="file" name="photo" accept="image/*">
+                    <p class="content-manager__hint">Upload exactly 1200 × 600 px (2:1) for the public achiever card. JPG, PNG, WEBP or GIF; max 5 MB.</p>
                 </div>
                 
                 <div>

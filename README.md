@@ -56,7 +56,7 @@ This adds banner content visibility, disciplines and apparatus without deleting 
 | Facebook, Instagram, LinkedIn, WhatsApp, YouTube and other social links | **Social Media** |
 | WhatsApp number, logo, address, SEO and map | **Website Settings** |
 
-Gallery, mentors, achievers, competitions and notices are managed through their matching admin modules. All Page Content fields include a character limit appropriate to the template, protecting the layout on smaller screens.
+Gallery, mentors, team members, achievers, competitions and notices are managed through their matching admin modules. All Page Content fields include a character limit appropriate to the template, protecting the layout on smaller screens.
 
 ## Project layout
 

@@ -135,6 +135,7 @@ $edit = isset($_GET["edit"])
                 <?php if ($edit && $edit["image"]): ?><img src="<?= "../" .
     $edit["image"] ?>" class="h-16 mb-1 rounded"><br><?php endif; ?>
                 <input type="file" name="image" accept="image/*">
+                <p class="content-manager__hint">Upload exactly 1200 × 600 px (2:1) for the public competition card. JPG, PNG, WEBP or GIF; max 5 MB.</p>
             </div>
             
             <button class="mt-4 btn-primary px-7 py-2 text-sm">Save Competition</button>

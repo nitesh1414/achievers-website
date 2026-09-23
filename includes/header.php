@@ -40,7 +40,7 @@ $whatsapp_message = rawurlencode(
     <link rel="icon" type="image/png" href="<?= e($logo) ?>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/style.css?v=20260909-compact-3">
+    <link rel="stylesheet" href="assets/css/style.css?v=20260909-compact-4">
 </head>
 <body class="bg-slate-50 text-slate-800">
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -98,6 +98,7 @@ $whatsapp_message = rawurlencode(
                 <a href="courses.php" class="nav-link">Courses</a>
                 <a href="achievements.php" class="nav-link">Achievements</a>
                 <a href="mentor.php" class="nav-link">Mentors</a>
+                <a href="team.php" class="nav-link">Our Team</a>
                 <a href="admissions.php" class="nav-link">Admissions</a>
                 <a href="gallery.php" class="nav-link">Gallery</a>
                 <a href="contact.php" class="nav-link">Contact</a>
@@ -118,6 +119,7 @@ $whatsapp_message = rawurlencode(
                 <a href="courses.php" class="nav-link">Our programs</a>
                 <a href="achievements.php" class="nav-link">Achievements</a>
                 <a href="mentor.php" class="nav-link">Our mentors</a>
+                <a href="team.php" class="nav-link">Our team</a>
                 <a href="admissions.php" class="nav-link">Admissions</a>
                 <a href="gallery.php" class="nav-link">Gallery</a>
                 <a href="contact.php" class="nav-link">Contact</a>
