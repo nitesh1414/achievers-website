@@ -1,74 +1,65 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # ============================================
 # Achievers Academy CMS - Deployment Script
 # Run from project root: bash deploy.sh
+# Override production values when needed, for example:
+# WEB_ROOT=/home/account/public_html bash deploy.sh
 # ============================================
 
-set -e
+set -euo pipefail
 
-echo "🚀 Achievers Academy CMS Deployment Script"
-echo "=========================================="
-
-# Configuration (EDIT THESE)
-PROJECT_DIR="$(pwd)"
-PUBLIC_DIR="$PROJECT_DIR/public"
-ADMIN_DIR="$PROJECT_DIR/admin"
-UPLOADS_DIR="$PUBLIC_DIR/uploads"
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SQL_DIR="$PROJECT_DIR/sql"
 
-# Production paths (change if needed)
-WEB_ROOT="/var/www/achievers_cms"
-DB_NAME="achievers_cms"
-DB_USER="root"
-DB_PASS=""
+# Production paths (override these environment variables for the host)
+WEB_ROOT="${WEB_ROOT:-/var/www/achievers_cms}"
+DB_NAME="${DB_NAME:-achievers_cms}"
+DB_USER="${DB_USER:-root}"
+DB_PASS="${DB_PASS:-}"
 
-# Colors
 GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
+YELLOW='\033[0;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
+echo "🚀 Achievers Academy CMS Deployment Script"
+echo "=========================================="
+echo "Deploying to: $WEB_ROOT"
+
 echo -e "${YELLOW}Step 1: Preparing directories...${NC}"
-
-# Create necessary directories
-mkdir -p "$UPLOADS_DIR"
-chmod 755 "$UPLOADS_DIR"
-mkdir -p "$WEB_ROOT"
-
+mkdir -p "$WEB_ROOT" "$WEB_ROOT/uploads"
+chmod 755 "$WEB_ROOT" "$WEB_ROOT/uploads"
 echo -e "${GREEN}✓ Directories ready${NC}"
 
-echo -e "${YELLOW}Step 2: Copying files to web root...${NC}"
+echo -e "${YELLOW}Step 2: Copying website files...${NC}"
 
-# Copy public files
-rsync -av --exclude='.git' --exclude='*.sh' --exclude='sql/' "$PUBLIC_DIR/" "$WEB_ROOT/"
+# Public PHP entry points and the root router live in the project root.
+# Copying only public/ would omit index.php, the admin router and .htaccess.
+rsync -av \
+    --include='/*.php' \
+    --include='/.htaccess' \
+    --exclude='*' \
+    "$PROJECT_DIR/" "$WEB_ROOT/"
 
-# Copy admin
-rsync -av "$ADMIN_DIR/" "$WEB_ROOT/admin/"
+# Copy every runtime directory used by the application. SQL, Git metadata and
+# development files are deliberately excluded from the public document root.
+for runtime_dir in admin assets includes uploads public; do
+    if [ -d "$PROJECT_DIR/$runtime_dir" ]; then
+        rsync -av "$PROJECT_DIR/$runtime_dir/" "$WEB_ROOT/$runtime_dir/"
+    fi
+done
 
-# Copy includes
-rsync -av "$PROJECT_DIR/includes/" "$WEB_ROOT/includes/"
-
-# Copy .htaccess if exists
-if [ -f "$PUBLIC_DIR/.htaccess" ]; then
-    cp "$PUBLIC_DIR/.htaccess" "$WEB_ROOT/.htaccess"
-fi
-
-echo -e "${GREEN}✓ Files copied${NC}"
+echo -e "${GREEN}✓ Website, admin area and routing files copied${NC}"
 
 echo -e "${YELLOW}Step 3: Setting permissions...${NC}"
-
-# Set permissions
 find "$WEB_ROOT" -type d -exec chmod 755 {} \;
 find "$WEB_ROOT" -type f -exec chmod 644 {} \;
 chmod 755 "$WEB_ROOT/uploads"
-chmod 755 "$WEB_ROOT/admin"
-chmod +x "$WEB_ROOT/admin/*.php" 2>/dev/null || true
-
 echo -e "${GREEN}✓ Permissions set${NC}"
 
 echo -e "${YELLOW}Step 4: Database setup (optional)${NC}"
-read -p "Import database schema and seed data? (y/n): " -n 1 -r
+read -r -p "Import database schema and seed data? (y/n): " -n 1 REPLY
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "Importing schema..."
@@ -81,12 +72,22 @@ else
 fi
 
 echo -e "${YELLOW}Step 5: Final configuration check${NC}"
-
-# Check for db.php
 if [ -f "$WEB_ROOT/includes/db.php" ]; then
     echo "Database config file found."
 else
-    echo -e "${RED}Warning: includes/db.php not found in web root${NC}"
+    echo -e "${RED}Warning: includes/db.php was not copied to the web root${NC}"
+fi
+
+if [ -f "$WEB_ROOT/admin/index.php" ]; then
+    echo "Admin dashboard entry point found."
+else
+    echo -e "${RED}Warning: admin/index.php was not copied to the web root${NC}"
+fi
+
+if [ -f "$WEB_ROOT/.htaccess" ]; then
+    echo "Root routing file found."
+else
+    echo -e "${RED}Warning: .htaccess was not copied to the web root${NC}"
 fi
 
 echo ""
@@ -94,9 +95,9 @@ echo -e "${GREEN}✅ Deployment Complete!${NC}"
 echo ""
 echo "Next steps:"
 echo "1. Edit $WEB_ROOT/includes/db.php with production credentials"
-echo "2. Change admin password in the CMS"
-echo "3. Set up a virtual host pointing to $WEB_ROOT"
-echo "4. Visit: https://yourdomain.com"
+echo "2. Change the CMS administrator password"
+echo "3. Point the virtual host or subdomain document root to $WEB_ROOT"
+echo "4. Visit: https://yourdomain.com/"
 echo "5. Admin: https://yourdomain.com/admin/login.php"
 echo ""
 echo "Default admin: admin / admin123 (CHANGE IMMEDIATELY)"
