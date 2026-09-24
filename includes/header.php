@@ -49,7 +49,7 @@ $nav_link_attributes = static function ($page) use ($current_page) {
     <link rel="icon" type="image/png" href="<?= e($logo) ?>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/style.css?v=20260909-compact-5">
+    <link rel="stylesheet" href="assets/css/style.css?v=20260909-compact-6">
 </head>
 <body class="bg-slate-50 text-slate-800">
     <a class="skip-link" href="#main-content">Skip to content</a>

@@ -397,6 +397,8 @@ input:focus, textarea:focus, select:focus { border-color: var(--gold-500) !impor
     .navbar-logo { height: 48px; }
     .text-logo { font-size: .85rem; max-width: 155px; }
     .hero-slider, .hero-content { min-height: 460px; }
+    /* Preserve the complete 1920 × 900 banner in the narrow mobile frame. */
+    .hero-slide__image { background: var(--navy-950); object-fit: contain; object-position: center; }
     .hero-slide::after { background: linear-gradient(90deg, rgba(3,14,28,.74), rgba(3,14,28,.44)); }
     .hero-copy { padding-block: 2.5rem 3rem; }
     main .hero-title { font-size: clamp(1.9rem, 9vw, 2.7rem) !important; }
