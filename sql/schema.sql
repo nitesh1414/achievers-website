@@ -1,18 +1,10 @@
--- ============================================================
--- ACHIEVERS GYMNASTICS ACADEMY - COMPLETE DATABASE
--- Single file: Schema + All Seed Data + Banners
--- Run: mysql -u root -p < combined_schema_seed.sql
--- ============================================================
+-- Achievers Gymnastics Academy CMS schema
+-- Fresh installation: mysql -u root -p < sql/schema.sql && mysql -u root -p achievers_cms < sql/seed_data.sql
 
-DROP DATABASE IF EXISTS achievers_cms;
-CREATE DATABASE achievers_cms CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS achievers_cms CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE achievers_cms;
 
--- ============================================
--- TABLES
--- ============================================
-
-CREATE TABLE admins (
+CREATE TABLE IF NOT EXISTS admins (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
@@ -21,18 +13,26 @@ CREATE TABLE admins (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE banners (
+CREATE TABLE IF NOT EXISTS settings (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    subtitle VARCHAR(255),
+    setting_key VARCHAR(100) NOT NULL UNIQUE,
+    setting_value TEXT,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS banners (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(70) NOT NULL,
+    subtitle VARCHAR(150),
     image VARCHAR(255) NOT NULL,
     link_url VARCHAR(255),
+    show_content TINYINT(1) NOT NULL DEFAULT 1,
     sort_order INT DEFAULT 0,
     status ENUM('active','inactive') DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE course_categories (
+CREATE TABLE IF NOT EXISTS course_categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     slug VARCHAR(100) NOT NULL UNIQUE,
@@ -41,23 +41,49 @@ CREATE TABLE course_categories (
     status ENUM('active','inactive') DEFAULT 'active'
 );
 
-CREATE TABLE courses (
+CREATE TABLE IF NOT EXISTS disciplines (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    category_id INT,
-    title VARCHAR(255) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    slug VARCHAR(100) NOT NULL UNIQUE,
+    description VARCHAR(500),
+    image VARCHAR(255),
+    sort_order INT DEFAULT 0,
+    status ENUM('active','inactive') DEFAULT 'active',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS courses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category_id INT NULL,
+    discipline_id INT NULL,
+    title VARCHAR(120) NOT NULL,
     slug VARCHAR(150) NOT NULL UNIQUE,
-    description TEXT,
+    description VARCHAR(500),
     syllabus TEXT,
     duration VARCHAR(100),
-    fees DECIMAL(10,2),
     thumbnail VARCHAR(255),
     status ENUM('active','inactive') DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (category_id) REFERENCES course_categories(id) ON DELETE SET NULL
+    FOREIGN KEY (category_id) REFERENCES course_categories(id) ON DELETE SET NULL,
+    FOREIGN KEY (discipline_id) REFERENCES disciplines(id) ON DELETE SET NULL
 );
 
-CREATE TABLE inquiries (
+CREATE TABLE IF NOT EXISTS apparatus (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    discipline_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    gender ENUM('Women','Men','Mixed') NOT NULL DEFAULT 'Mixed',
+    description VARCHAR(255),
+    sort_order INT DEFAULT 0,
+    status ENUM('active','inactive') DEFAULT 'active',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (discipline_id) REFERENCES disciplines(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS inquiries (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     phone VARCHAR(20) NOT NULL,
@@ -69,8 +95,7 @@ CREATE TABLE inquiries (
     FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE SET NULL
 );
 
--- Mentors table (used by public + admin)
-CREATE TABLE mentors (
+CREATE TABLE IF NOT EXISTS mentors (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     designation VARCHAR(150),
@@ -82,7 +107,19 @@ CREATE TABLE mentors (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE competitions (
+CREATE TABLE IF NOT EXISTS team_members (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    designation VARCHAR(150),
+    bio TEXT,
+    photo VARCHAR(255),
+    specialties VARCHAR(255),
+    experience_years INT DEFAULT 0,
+    status ENUM('active','inactive') DEFAULT 'active',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS competitions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     event_date DATE,
@@ -96,7 +133,7 @@ CREATE TABLE competitions (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE gallery (
+CREATE TABLE IF NOT EXISTS gallery (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     image VARCHAR(255) NOT NULL,
@@ -107,7 +144,7 @@ CREATE TABLE gallery (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE toppers (
+CREATE TABLE IF NOT EXISTS toppers (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     rank VARCHAR(50),
@@ -119,7 +156,7 @@ CREATE TABLE toppers (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE notices (
+CREATE TABLE IF NOT EXISTS notices (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     content TEXT,
@@ -129,15 +166,7 @@ CREATE TABLE notices (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE settings (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    setting_key VARCHAR(100) NOT NULL UNIQUE,
-    setting_value TEXT,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
--- Social Media Management
-CREATE TABLE social_links (
+CREATE TABLE IF NOT EXISTS social_links (
     id INT AUTO_INCREMENT PRIMARY KEY,
     platform VARCHAR(50) NOT NULL,
     url VARCHAR(255) NOT NULL,
@@ -146,103 +175,21 @@ CREATE TABLE social_links (
     sort_order INT DEFAULT 0
 );
 
--- Testimonials (dynamic, managed from admin)
-CREATE TABLE testimonials (
+CREATE TABLE IF NOT EXISTS testimonials (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     role VARCHAR(150),
-    quote TEXT NOT NULL,
-    rating TINYINT(1) DEFAULT 5 CHECK (rating BETWEEN 1 AND 5),
+    quote VARCHAR(600) NOT NULL,
+    rating TINYINT(1) DEFAULT 5,
     photo VARCHAR(255),
     status ENUM('active','inactive') DEFAULT 'active',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT chk_testimonial_rating CHECK (rating BETWEEN 1 AND 5)
 );
 
--- ============================================
--- SEED DATA
--- ============================================
-
--- Admin
-INSERT INTO admins (username, password, email, full_name) VALUES 
-('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin@achieversacademy.com', 'Admin User');
-
--- Course Categories
-INSERT INTO course_categories (name, slug, description, icon) VALUES 
-('Beginner Programs', 'beginner-programs', 'Foundation level gymnastics for ages 5-8.', 'child'),
-('Intermediate Training', 'intermediate-training', 'Skill development for ages 8-12.', 'school'),
-('Elite Competitive', 'elite-competitive', 'Advanced training for national level.', 'trophy'),
-('Specialized Camps', 'specialized-camps', 'Holiday and summer intensive programs.', 'calendar');
-
--- Courses
-INSERT INTO courses (category_id, title, slug, description, syllabus, duration, fees, thumbnail, status) VALUES 
-(1, 'Little Champions (Ages 5-7)', 'little-champions', 'Introductory gymnastics program focused on fun, balance and coordination.', 'Floor basics, Balance beam, Vault fundamentals', '8 weeks', 4500.00, 'assets/images/course-little.jpg', 'active'),
-(2, 'Rising Stars (Ages 8-11)', 'rising-stars', 'Builds strength, flexibility and apparatus skills.', 'Core tumbling, Beam & bars, Strength & conditioning', '12 weeks', 6500.00, 'assets/images/course-rising.jpg', 'active'),
-(3, 'National Prep Squad', 'national-prep-squad', 'Intensive training for national and state competitions.', 'Advanced routines, Competition simulation, Mental training', 'Ongoing', 12500.00, 'assets/images/course-national.jpg', 'active'),
-(1, 'Free Trial Class', 'free-trial', 'One complimentary session to experience our facility.', 'Full assessment + fun session', '1 class', 0.00, 'assets/images/course-trial.jpg', 'active');
-
--- 5 Beautiful Banners
-INSERT INTO banners (title, subtitle, image, link_url, sort_order, status) VALUES 
-('Train Like a Champion', 'Under International Coach Pankaj Kunde — Nagpur\'s most decorated gymnastics academy', 'assets/images/hero-main.jpg', 'courses', 1, 'active'),
-('World-Class Facility', 'FIG-standard apparatus • Sprung floors • Olympic-grade safety', 'assets/images/hero-facility.jpg', 'about', 2, 'active'),
-('Enroll for 2026 Season', 'Limited slots available. Start with a FREE TRIAL today!', 'assets/images/hero-enroll.jpg', 'admissions', 3, 'active'),
-('Join Our Champions', 'Build strength, discipline & confidence. Ages 5–18 welcome', 'assets/images/hero-main.jpg', 'achievements', 4, 'active'),
-('Free Trial This Week', 'Experience world-class coaching. Book your slot now', 'assets/images/hero-facility.jpg', 'admissions', 5, 'active');
-
--- Mentors seed data
-INSERT INTO mentors (name, designation, bio, photo, specialties, experience_years, status) VALUES 
-('Pankaj Kunde', 'Founder & International Head Coach', 'Trained under international standards. 18+ years experience coaching gymnasts to national and international medals. FIG certified.', 'assets/images/mentor-pankaj.jpg', 'Artistic Gymnastics, Floor, Vault, Beam', 18, 'active'),
-('Neha Rao', 'Senior Coach - Beam & Floor', 'Former national level gymnast. Specializes in women\'s artistic gymnastics and flexibility training.', 'assets/images/mentor-neha.jpg', 'Balance Beam, Floor Exercise, Flexibility', 9, 'active'),
-('Rahul Deshpande', 'Assistant Coach - Strength & Vault', 'Certified strength and conditioning coach with deep knowledge of gymnastics conditioning.', 'assets/images/mentor-rahul.jpg', 'Vault, Strength Training, Tumbling', 6, 'active');
-
--- Inquiries
-INSERT INTO inquiries (name, phone, email, course_id, message, status) VALUES 
-('Aarav Sharma Parent', '9876543210', 'priya.sharma@email.com', 1, 'Interested in Little Champions for my son Aarav (6 yrs).', 'Enrolled'),
-('Riya Deshmukh', '9823456789', 'rajesh.deshmukh@email.com', 3, 'My daughter wants to join the Elite program.', 'Contacted');
-
--- Social Media
-INSERT INTO social_links (platform, url, icon, is_active, sort_order) VALUES 
-('Instagram', 'https://www.instagram.com/achieversgymnasticacademy/', 'instagram', 1, 1),
-('WhatsApp', 'https://wa.me/919096594552', 'whatsapp', 1, 2),
-('Facebook', 'https://facebook.com/achieversgymnasticacademy', 'facebook', 1, 3),
-('LinkedIn', 'https://linkedin.com/company/achievers-gymnastics', 'linkedin', 1, 4);
-
--- Settings
-INSERT INTO settings (setting_key, setting_value) VALUES 
-('site_name', 'Achievers Gymnastics Academy'),
-('tagline', 'Train Like a Champion | Nagpur\'s #1 Gymnastics Academy'),
-('phone', '+91 90965 94552'),
-('whatsapp', '919096594552'),
-('email', 'info@achieversacademy.com'),
-('address', 'Plot No. 45, Wardhaman Nagar, Nagpur - 440008'),
-('instagram', 'https://www.instagram.com/achieversgymnasticacademy/'),
-('facebook', 'https://facebook.com/achieversgymnasticacademy'),
-('linkedin', 'https://linkedin.com/company/achievers-gymnastics'),
-('meta_title', 'Achievers Gymnastics Academy | Best Gymnastics in Nagpur'),
-('meta_description', 'Nagpur\'s #1 gymnastics academy under Coach Pankaj Kunde. 250+ medals. FIG-standard facility.'),
-('active_students', '400+'),
-('medals_won', '250+'),
-('years_experience', '18');
-
--- Toppers & other data (abbreviated for brevity)
-INSERT INTO toppers (name, rank, year, achievement, photo, course, status) VALUES 
-('Aarav Sharma', 'National Gold', 2024, 'National Gymnastics Championship - Floor', 'assets/images/topper-aarav.jpg', 'National Prep Squad', 'active'),
-('Riya Deshmukh', 'Asian Silver', 2024, 'Asian Junior - Beam', 'assets/images/topper-riya.jpg', 'Elite Competitive', 'active');
-
-INSERT INTO gallery (title, image, category, event_date, status) VALUES 
-('National Gold - Aarav 2024', 'assets/images/gallery-aarav.jpg', 'Competition', '2024-11-15', 'active'),
-('Facility - FIG Apparatus', 'assets/images/gallery-facility.jpg', 'Facility', '2025-02-01', 'active');
-
--- Testimonials seed data
-INSERT INTO testimonials (name, role, quote, rating, status) VALUES 
-('Mrs. Priya Sharma', 'Parent of Aarav', 'Coach Pankaj sir doesn\'t just train gymnasts — he builds champions. My son\'s discipline and confidence transformed within months.', 5, 'active'),
-('Mr. Rajesh Deshmukh', 'Parent of Riya', 'World-class coaching and results. The personal attention every child receives here is unmatched in Nagpur.', 5, 'active'),
-('Anaya Joshi', 'SGFI Gold Medalist', 'From a shy 6-year-old to standing on a national podium — AGA gave me wings and belief in myself.', 5, 'active'),
-('Mr. Amit Kulkarni', 'Parent of Kabir', 'Safe, structured and seriously effective. My child looks forward to every session.', 5, 'active');
-
--- ============================================
--- INDEXES
--- ============================================
 CREATE INDEX idx_inquiries_status ON inquiries(status);
 CREATE INDEX idx_courses_slug ON courses(slug);
 CREATE INDEX idx_banners_sort ON banners(sort_order);
+CREATE INDEX idx_disciplines_sort ON disciplines(sort_order);
+CREATE INDEX idx_apparatus_discipline_gender ON apparatus(discipline_id, gender, sort_order);
 CREATE INDEX idx_testimonials_status ON testimonials(status);

@@ -39,7 +39,7 @@ INSERT INTO banners (title, subtitle, image, link_url, sort_order, status) VALUE
  '/courses.php', 1, 'active'),
 
 ('World-Class Facility', 
- 'FIG-standard apparatus • Sprung floors • Olympic-grade safety', 
+ 'Competition-ready apparatus • Sprung floors • Olympic-grade safety',
  'assets/images/hero-facility.jpg', 
  '/about.php', 2, 'active'),
 

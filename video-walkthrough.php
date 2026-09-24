@@ -1,20 +1,25 @@
+<?php
+require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/includes/functions.php';
+$video_whatsapp = whatsapp_number(get_setting('whatsapp', ''));
+$video_whatsapp_message = rawurlencode(content_value('whatsapp_message', 'Hi Achievers Academy, I would like to know more.'));
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Walkthrough • Achievers Academy CMS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .video-container { background: #0f172a; border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5); }
-        .timeline { height: 6px; background: #334155; position: relative; cursor: pointer; }
-        .progress { height: 6px; background: #f59e0b; width: 0%; transition: width .1s linear; }
-        .scene { transition: all 0.4s ease; }
-        .scene.active { opacity: 1; }
-    </style>
+    <link rel="stylesheet" href="assets/css/style.css?v=20260909-compact-7">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body class="bg-slate-900 text-white">
-    <div class="max-w-5xl mx-auto pt-8 pb-12 px-5">
+    <?php if ($video_whatsapp): ?><a class="whatsapp-float" href="https://wa.me/<?= e($video_whatsapp) ?>?text=<?= e($video_whatsapp_message) ?>" target="_blank" rel="noopener noreferrer" aria-label="<?= e(content_value('whatsapp_float_label', 'Chat on WhatsApp')) ?>"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i><span>WhatsApp</span></a><?php endif; ?>
+    <main class="video-walkthrough max-w-5xl mx-auto pt-8 pb-12 px-5">
         <div class="flex justify-between items-center mb-6">
             <div>
                 <div class="flex items-center gap-x-2">
@@ -29,7 +34,7 @@
             </div>
         </div>
         
-        <h1 class="text-4xl font-extrabold mb-1">Quick Demo Video Walkthrough</h1>
+        <h1 class="video-walkthrough__title">Quick Demo Video Walkthrough</h1>
         <p class="text-slate-300 mb-8">Interactive 90-second guided tour of the full system. Click any scene or use controls.</p>
         
         <!-- VIDEO PLAYER -->
@@ -38,7 +43,7 @@
             <div id="video-screen" class="relative h-[420px] flex items-center justify-center bg-slate-950 overflow-hidden">
                 
                 <!-- Scene 1: Homepage -->
-                <div id="scene-1" class="scene absolute inset-0 bg-cover bg-center flex items-center p-10" style="background-image: url('/assets/images/hero-main.jpg')">
+                <div id="scene-1" class="scene scene--hero absolute inset-0 bg-cover bg-center flex items-center p-10">
                     <div class="max-w-md">
                         <div class="text-xs px-3 py-1 bg-white/90 text-slate-900 rounded w-fit">LIVE WEBSITE</div>
                         <h2 class="text-white text-5xl font-extrabold mt-2 leading-none">Train Like a Champion</h2>
@@ -83,7 +88,7 @@
                     <div class="bg-white rounded p-4 text-xs">
                         <div class="flex justify-between mb-2">
                             <span class="font-semibold">Little Champions</span>
-                            <span class="text-emerald-600">₹4,500</span>
+                            <span class="text-emerald-600">Active</span>
                         </div>
                         <div class="h-2 bg-slate-200 rounded mb-4">
                             <div class="h-2 bg-emerald-400 w-[75%] rounded"></div>
@@ -127,7 +132,7 @@
         <div class="text-center mt-4">
             <a href="demo-walkthrough" class="text-sm underline text-amber-300">Or listen to the full audio-only walkthrough</a>
         </div>
-    </div>
+    </main>
     
     <script>
         let currentScene = 1;

@@ -1,27 +1,31 @@
+# Root-level routing for the site. This file is portable: do not add a
+# RewriteBase or hard-coded installation path, because the production domain
+# may be hosted at a different document root.
 Options -Indexes
-RewriteEngine On
-RewriteBase /LIVEpro/achievers/achievers_cms/
+DirectoryIndex index.php
 
-# ADMIN - bypass first
-RewriteCond %{REQUEST_URI} ^/LIVEpro/achievers/achievers_cms/admin [NC]
-RewriteRule ^ - [L]
+<IfModule mod_rewrite.c>
+    RewriteEngine On
 
-RewriteRule ^admin/?$ admin/index.php [L]
-RewriteRule ^admin/([a-zA-Z0-9_-]+)$ admin/$1.php [L]
-RewriteRule ^admin/(.+\.php)$ admin/$1 [L]
+    # Let the admin directory and every real admin PHP file be served directly.
+    # This prevents /admin/index.php from being rewritten back through a
+    # project-specific path and returning a 404 on a hosted domain.
+    RewriteRule ^admin/?$ admin/index.php [L]
+    RewriteRule ^admin/ - [L]
 
-# PUBLIC clean URLs
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_URI} !\.(php|css|js|jpg|jpeg|png|gif|ico|svg|webp|pdf|woff|woff2|map|txt|json)$ [NC]
+    # Never rewrite existing files or directories (assets, uploads and PHP
+    # entry points must keep their physical paths).
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
 
-RewriteRule ^([a-zA-Z0-9_-]+)$ $1.php [NC,L]
-
-# Security
-<IfModule mod_headers.c>
-    Header set X-Content-Type-Options "nosniff"
-    Header set X-Frame-Options "SAMEORIGIN"
+    # Optional clean public routes, e.g. /courses -> /courses.php.
+    RewriteRule ^([A-Za-z0-9_-]+)/?$ $1.php [L,NC]
 </IfModule>
 
-ErrorDocument 404 /LIVEpro/achievers/achievers_cms/404.php
-php_flag display_errors Off
+# The application is served at this domain's document root.
+ErrorDocument 404 /404.php
+
+<IfModule mod_php.c>
+    php_flag display_errors Off
+</IfModule>
