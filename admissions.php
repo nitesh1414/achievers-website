@@ -24,6 +24,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 $courses = db_get_all(
     "SELECT id, title FROM courses WHERE status = 'active' ORDER BY title ASC"
 );
+$admission_phone = get_setting("phone", "+91 90965 94552");
+$admission_email = get_setting("email", "info@achieversacademy.com");
+$admission_address = get_setting(
+    "address",
+    "Plot No. 45, Wardhaman Nagar, Nagpur - 440008"
+);
 ?>
 <section class="page-shell"><div class="tail-container max-w-5xl">
     <header class="page-header"><span class="section-kicker"><?= e(
@@ -56,23 +62,113 @@ $courses = db_get_all(
     : "" ?>><?= e(
     $course["title"]
 ) ?></option><?php endforeach; ?></select></div><div><label class="text-xs font-semibold block mb-1">Message / questions</label><textarea name="message" rows="4" maxlength="1500" class="w-full px-4 py-2.5 border border-slate-300 rounded-2xl" placeholder="Tell us about your child or any specific requirements..."></textarea></div><button type="submit" class="btn-primary w-full py-3.5">Submit enquiry</button><p class="text-center text-xs text-slate-400">We will contact you within 24 hours.</p></form></div>
-    <aside class="md:col-span-2"><div class="bg-slate-900 text-white p-6 rounded-3xl"><h2 class="font-semibold mb-3 text-white">Contact details</h2><div class="text-sm space-y-3"><div><strong>Phone</strong><br><?= e(
-        get_setting("phone")
-    ) ?></div><div><strong>WhatsApp</strong><br><?php if (
-    $whatsapp
-): ?><a href="https://wa.me/<?= e(
-    $whatsapp
-) ?>" class="underline">Chat now</a><?php endif; ?></div><div><strong>Email</strong><br><?= e(
-    get_setting("email")
-) ?></div><div><strong>Address</strong><br><?= e(
-    get_setting("address")
-) ?></div></div><div class="mt-6 pt-6 border-t border-white/30 text-sm"><h3 class="font-semibold text-white"><?= e(
-    content_value("admissions_trial_title", "Free trial class")
-) ?></h3><p class="text-xs mt-1 text-slate-200"><?= e(
-    content_value(
-        "admissions_trial_text",
-        "One complimentary 60-minute session. Limited slots are available every week."
-    )
-) ?></p></div></div></aside></div>
+    <aside class="md:col-span-2">
+        <div class="bg-white border border-slate-200 shadow-sm rounded-2xl p-6">
+            <h2 class="font-bold text-xl mb-6 flex items-center gap-3">
+                <i class="fas fa-map-marker-alt text-amber-500" aria-hidden="true"></i>
+                Our Location
+            </h2>
+
+            <div class="space-y-6">
+                <div class="flex gap-4">
+                    <div class="w-9 h-9 bg-slate-100 rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-map-marker-alt text-slate-700" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-sm text-slate-500">ADDRESS</div>
+                        <div class="text-slate-800 leading-snug"><?= e(
+                            $admission_address
+                        ) ?></div>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="w-9 h-9 bg-emerald-100 rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-phone text-emerald-600" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-sm text-slate-500">PHONE / CALL</div>
+                        <a href="tel:<?= e(
+                            $admission_phone
+                        ) ?>" class="block text-lg font-medium hover:text-amber-600 transition-colors">
+                            <?= e($admission_phone) ?>
+                        </a>
+                    </div>
+                </div>
+
+                <?php if ($whatsapp): ?>
+                    <div class="flex gap-4">
+                        <div class="w-9 h-9 bg-green-100 rounded-2xl flex items-center justify-center flex-shrink-0">
+                            <i class="fab fa-whatsapp text-green-600 text-lg" aria-hidden="true"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-sm text-slate-500">WHATSAPP</div>
+                            <a href="https://wa.me/<?= e(
+                                $whatsapp
+                            ) ?>?text=<?= e(
+    $whatsapp_message
+) ?>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-emerald-600 hover:text-emerald-700 font-medium">
+                                <span>Chat on WhatsApp</span>
+                                <i class="fas fa-external-link-alt text-xs" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <div class="flex gap-4">
+                    <div class="w-9 h-9 bg-blue-100 rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-envelope text-blue-600" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-sm text-slate-500">EMAIL US</div>
+                        <a href="mailto:<?= e(
+                            $admission_email
+                        ) ?>" class="block text-lg font-medium hover:text-blue-600 transition-colors">
+                            <?= e($admission_email) ?>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <?php if ($social_links): ?>
+                <div class="mt-8 pt-6 border-t">
+                    <div class="text-xs font-semibold tracking-wider text-slate-500 mb-3">FOLLOW US</div>
+                    <div class="flex gap-3">
+                        <?php foreach ($social_links as $social): ?>
+                            <a href="<?= e(
+                                $social["url"]
+                            ) ?>" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-slate-100 hover:bg-amber-100 text-slate-700 hover:text-slate-900 rounded-2xl transition-colors" aria-label="<?= e(
+    $social["platform"]
+) ?>" title="<?= e($social["platform"]) ?>">
+                                <i class="<?= e(
+                                    social_icon_family(
+                                        $social["icon"] ?? "",
+                                        $social["platform"]
+                                    ) .
+                                        " " .
+                                        social_icon_class(
+                                            $social["icon"] ?? "",
+                                            $social["platform"]
+                                        )
+                                ) ?> text-xl" aria-hidden="true"></i>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <div class="mt-8 pt-6 border-t">
+                <h3 class="font-semibold text-slate-900"><?= e(
+                    content_value("admissions_trial_title", "Free trial class")
+                ) ?></h3>
+                <p class="text-xs mt-1 text-slate-600"><?= e(
+                    content_value(
+                        "admissions_trial_text",
+                        "One complimentary 60-minute session. Limited slots are available every week."
+                    )
+                ) ?></p>
+            </div>
+        </div>
+    </aside></div>
 </div></section>
 <?php require_once __DIR__ . "/includes/footer.php"; ?>
