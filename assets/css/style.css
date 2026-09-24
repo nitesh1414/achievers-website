@@ -91,9 +91,9 @@ img { max-width: 100%; }
 .text-logo { color: #fff; font-family: 'Poppins', Arial, sans-serif; font-size: .9rem; font-weight: 600; letter-spacing: -.02em; line-height: 1.2; max-width: 220px; }
 .navbar__links { align-items: center; display: flex; gap: clamp(.8rem, 1.55vw, 1.5rem); margin-left: auto; }
 .nav-link { color: #dce6f2; font-size: .75rem; font-weight: 600; position: relative; text-decoration: none; white-space: nowrap; }
-.nav-link:hover { color: var(--gold-300); }
+.nav-link:hover, .nav-link.is-active { color: var(--gold-300); }
 .nav-link::after { background: var(--gold-500); bottom: -.5rem; content: ''; height: 2px; left: 0; position: absolute; transform: scaleX(0); transform-origin: left; transition: transform .2s ease; width: 100%; }
-.nav-link:hover::after { transform: scaleX(1); }
+.nav-link:hover::after, .nav-link.is-active::after { transform: scaleX(1); }
 .navbar__actions { align-items: center; display: flex; gap: .75rem; margin-left: 1.25rem; }
 .navbar__cta { font-size: .78rem; min-height: 40px; padding: .52rem 1.05rem; }
 .menu-toggle { background: transparent; border: 1px solid rgba(255,255,255,.22); border-radius: .7rem; color: #fff; display: none; font-size: 1.1rem; height: 42px; width: 42px; }
@@ -212,6 +212,7 @@ img { max-width: 100%; }
 .testimonial-card blockquote { color: #263952; flex: 1; font-family: 'Roboto', Arial, sans-serif; font-size: .94rem; font-style: normal; line-height: 1.65; margin: 1.1rem 0; position: relative; z-index: 1; }
 .testimonial-card__person { align-items: center; border-top: 1px solid #dce5ee; display: flex; gap: .75rem; padding-top: 1rem; }
 .testimonial-card__person img, .testimonial-card__avatar { align-items: center; background: #d8edf9; border-radius: 50%; color: #0e4267; display: flex; flex: 0 0 auto; font-family: 'Poppins', Arial, sans-serif; font-size: .85rem; font-weight: 600; height: 42px; justify-content: center; object-fit: cover; width: 42px; }
+.testimonial-card__avatar { font-size: 1.85rem !important; text-align: center; }
 .testimonial-card cite { color: var(--navy-950); display: block; font-family: 'Poppins', Arial, sans-serif; font-size: .83rem; font-style: normal; font-weight: 600; }
 .testimonial-card__person span { color: var(--slate-600); display: block; font-size: .76rem; }
 .testimonial-card--empty { align-items: center; justify-content: center; text-align: center; }

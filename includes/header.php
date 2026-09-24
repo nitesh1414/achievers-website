@@ -13,6 +13,15 @@ $whatsapp_message = rawurlencode(
         "Hi Achievers Academy, I would like to know more."
     )
 );
+$current_page = basename($_SERVER["PHP_SELF"] ?? "index.php");
+if ($current_page === "") {
+    $current_page = "index.php";
+}
+$nav_link_attributes = static function ($page) use ($current_page) {
+    return $current_page === $page
+        ? ' class="nav-link is-active" aria-current="page"'
+        : ' class="nav-link"';
+};
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -93,15 +102,15 @@ $whatsapp_message = rawurlencode(
             </a>
 
             <div class="navbar__links">
-                <a href="./" class="nav-link">Home</a>
-                <a href="about.php" class="nav-link">About</a>
-                <a href="courses.php" class="nav-link">Courses</a>
-                <a href="achievements.php" class="nav-link">Achievements</a>
-                <a href="mentor.php" class="nav-link">Mentors</a>
-                <a href="team.php" class="nav-link">Our Team</a>
-                <a href="admissions.php" class="nav-link">Admissions</a>
-                <a href="gallery.php" class="nav-link">Gallery</a>
-                <a href="contact.php" class="nav-link">Contact</a>
+                <a href="./"<?= $nav_link_attributes("index.php") ?>>Home</a>
+                <a href="about.php"<?= $nav_link_attributes("about.php") ?>>About</a>
+                <a href="courses.php"<?= $nav_link_attributes("courses.php") ?>>Courses</a>
+                <a href="achievements.php"<?= $nav_link_attributes("achievements.php") ?>>Achievements</a>
+                <a href="mentor.php"<?= $nav_link_attributes("mentor.php") ?>>Mentors</a>
+                <a href="team.php"<?= $nav_link_attributes("team.php") ?>>Our Team</a>
+                <a href="admissions.php"<?= $nav_link_attributes("admissions.php") ?>>Admissions</a>
+                <a href="gallery.php"<?= $nav_link_attributes("gallery.php") ?>>Gallery</a>
+                <a href="contact.php"<?= $nav_link_attributes("contact.php") ?>>Contact</a>
             </div>
 
             <div class="navbar__actions">
@@ -114,15 +123,15 @@ $whatsapp_message = rawurlencode(
 
         <div id="mobile-menu" class="mobile-menu" data-mobile-menu>
             <div class="tail-container mobile-menu__links">
-                <a href="./" class="nav-link">Home</a>
-                <a href="about.php" class="nav-link">About us</a>
-                <a href="courses.php" class="nav-link">Our programs</a>
-                <a href="achievements.php" class="nav-link">Achievements</a>
-                <a href="mentor.php" class="nav-link">Our mentors</a>
-                <a href="team.php" class="nav-link">Our team</a>
-                <a href="admissions.php" class="nav-link">Admissions</a>
-                <a href="gallery.php" class="nav-link">Gallery</a>
-                <a href="contact.php" class="nav-link">Contact</a>
+                <a href="./"<?= $nav_link_attributes("index.php") ?>>Home</a>
+                <a href="about.php"<?= $nav_link_attributes("about.php") ?>>About us</a>
+                <a href="courses.php"<?= $nav_link_attributes("courses.php") ?>>Our programs</a>
+                <a href="achievements.php"<?= $nav_link_attributes("achievements.php") ?>>Achievements</a>
+                <a href="mentor.php"<?= $nav_link_attributes("mentor.php") ?>>Our mentors</a>
+                <a href="team.php"<?= $nav_link_attributes("team.php") ?>>Our team</a>
+                <a href="admissions.php"<?= $nav_link_attributes("admissions.php") ?>>Admissions</a>
+                <a href="gallery.php"<?= $nav_link_attributes("gallery.php") ?>>Gallery</a>
+                <a href="contact.php"<?= $nav_link_attributes("contact.php") ?>>Contact</a>
                 <a href="admissions.php" class="btn-accent mobile-menu__cta">Enroll for a free trial</a>
             </div>
         </div>
